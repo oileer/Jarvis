@@ -1,0 +1,14 @@
+Link para Baixar o Pyhton: ​https://www.python.org/​
+
+​Link para baixar o VSCODE: https://code.visualstudio.com/​
+
+
+Aprenda a configurar o LiveKit e o Gemini para permitir comunicação em tempo real entre sua voz e a IA
+
+Configurar a API Key do LiveKit​ GEMINI E MEM0 (SALVE TODAS API KEYS EM UM ARQUIVO TXT)
+
+URL:https://livekit.io/
+
+​API do Gemini: https://aistudio.google.com/welcome​
+
+Link do MEM0: https://mem0.ai/

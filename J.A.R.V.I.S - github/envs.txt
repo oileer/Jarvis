@@ -1,0 +1,51 @@
+
+Websocket URL
+wss://jarvis-37fhmjrj.livekit.cloud
+
+API key
+APIpKqzZnXBw3h4
+
+API secret
+a1o2dwdP93b53iJbc2UEU4v8cTTfcjLfV1gNW5UE0AK
+
+
+Environment variables
+LIVEKIT_URL=wss://jarvis-37fhmjrj.livekit.cloud
+LIVEKIT_API_KEY=APIpKqzZnXBw3h4
+LIVEKIT_API_SECRET=a1o2dwdP93b53iJbc2UEU4v8cTTfcjLfV1gNW5UE0AK
+
+
+
+api gemini
+
+
+mem0
+m0-mdxFHsmc2cKJpYNMWViCKynQWHR5Jq0LiY3sO02U
+
+
+
+.env example
+
+LIVEKIT_URL=wss://jarvis-37fhmjrj.livekit.cloud
+LIVEKIT_API_KEY=APIpKqzZnXBw3h4
+LIVEKIT_API_SECRET=a1o2dwdP93b53iJbc2UEU4v8cTTfcjLfV1gNW5UE0AK
+GOOGLE_API_KEY=AIzaSyA8r8rPeHF-PSs0mMoIGkzJ1z7URaxG12o
+MEM0_API_KEY=m0-mdxFHsmc2cKJpYNMWViCKynQWHR5Jq0LiY3sO02U
+
+
+
+.env.local example
+
+# Enviroment variables needed to connect to the LiveKit server.
+LIVEKIT_API_KEY=APIpKqzZnXBw3h4
+LIVEKIT_API_SECRET=a1o2dwdP93b53iJbc2UEU4v8cTTfcjLfV1gNW5UE0AK
+LIVEKIT_URL=wss://jarvis-37fhmjrj.livekit.cloud
+
+# Agent dispatch (https://docs.livekit.io/agents/server/agent-dispatch)
+# Leave AGENT_NAME blank to enable automatic dispatch
+# Provide an agent name to enable explicit dispatch
+AGENT_NAME=
+
+# Internally used environment variables
+NEXT_PUBLIC_APP_CONFIG_ENDPOINT=
+SANDBOX_ID=
