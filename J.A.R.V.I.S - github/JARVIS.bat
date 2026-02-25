@@ -1,39 +1,63 @@
 @echo off
-title ATLAS JARVIS SYSTEM
+setlocal EnableExtensions EnableDelayedExpansion
+title Iniciando J.A.R.V.I.S + Agent Starter
 
-echo ==========================
-echo INICIANDO ATLAS...
-echo ==========================
+REM ====== CONFIG ======
+set "AGENT_DIR=C:\Users\Euller\Desktop\J.A.R.V.I.S - github"
+set "JARVIS_DIR=C:\Users\Euller\Desktop\J.A.R.V.I.S - github"
+set "VENV_NAME=venv"
+set "CHROME_PATH=C:\Users\Euller\Documents\chrome-win\chrome-win\chrome.exe"
+REM ====================
 
-:: ==========================
-:: BACKEND (JARVIS) - MINIMIZADO
-:: ==========================
-cd /d "C:\Users\Euller\Desktop\Jarvis"
+REM Pasta e arquivo de log
+set "LOG_DIR=%TEMP%\jarvis_launcher"
+set "LOG_FILE=%LOG_DIR%\agent_log.txt"
 
-echo Iniciando Backend...
-start /min cmd /k "venv\Scripts\activate && python agent.py dev"
+if not exist "%LOG_DIR%" mkdir "%LOG_DIR%" >nul 2>&1
 
-:: ==========================
-:: FRONTEND (NEXT) - MINIMIZADO
-:: ==========================
-cd /d "C:\Users\Euller\Desktop\jvs_auth_92kx-main\Layout Jarvis\agent-starter-react-main"
+echo Iniciando Agent Starter...
+cd /d "%AGENT_DIR%"
 
-echo Iniciando Frontend...
-start /min cmd /k "pnpm dev"
+type nul > "%LOG_FILE%"
 
-:: ==========================
-:: AGUARDAR INICIALIZAÇÃO
-:: ==========================
-echo Aguardando serviços subirem...
-timeout /t 6 > nul
+start "Agent Starter" /min cmd /c "pnpm dev >> ""%LOG_FILE%"" 2>&1"
 
-:: ==========================
-:: ABRIR CHROME (MODO APP)
-:: ==========================
-start "" "C:\Users\Euller\Downloads\chrome-win\chrome-win\chrome.exe" --app=http://localhost:3000
+echo Aguardando URL aparecer no log...
 
-echo ==========================
-echo SISTEMA ONLINE
-echo ==========================
+:WAIT_URL
+timeout /t 1 /nobreak >nul
+
+for /f "usebackq delims=" %%U in (`
+  findstr /R "http://localhost:[0-9][0-9]*" "%LOG_FILE%" 2^>nul
+`) do (
+  set "URL=%%U"
+  goto :FOUND
+)
+
+for /f "usebackq delims=" %%U in (`
+  findstr /R "http://127\.0\.0\.1:[0-9][0-9]*" "%LOG_FILE%" 2^>nul
+`) do (
+  set "URL=%%U"
+  goto :FOUND
+)
+
+goto :WAIT_URL
+
+:FOUND
+for %%A in (%URL%) do (
+  echo %%A | findstr /R "^http://localhost:[0-9][0-9]*" >nul && set "FINAL_URL=%%A"
+  echo %%A | findstr /R "^http://127\.0\.0\.1:[0-9][0-9]*" >nul && set "FINAL_URL=%%A"
+)
+
+if not defined FINAL_URL set "FINAL_URL=http://localhost:3000"
+
+echo URL detectada: %FINAL_URL%
+echo Abrindo no Chrome custom...
+
+start "" "%CHROME_PATH%" --app=%FINAL_URL%
+
+echo Iniciando J.A.R.V.I.S...
+cd /d "%JARVIS_DIR%"
+start "J.A.R.V.I.S - github" /min cmd /k "call %VENV_NAME%\Scripts\activate.bat && python agent.py dev"
 
 exit
